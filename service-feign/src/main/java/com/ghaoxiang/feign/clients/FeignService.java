@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @date 2019年01月14日 08:59
  * @since V1.0
  */
-@FeignClient(value = "eureka-client")
+@FeignClient(value = "eureka-client", fallback = FeignServiceHystric.class)
 public interface FeignService {
 
-    @RequestMapping(value = "/eureka", method = RequestMethod.GET)
+    @RequestMapping(value = "/hi", method = RequestMethod.GET)
     String sayHiFromClientOne(@RequestParam(value = "name") String name);
 }
