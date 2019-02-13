@@ -1,0 +1,26 @@
+server:
+  port: 8765
+spring:
+  application:
+    name: service-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          #通过url输入注册中心指定服务跳转功能关闭
+          enabled: false
+          #将注册中心服务变成小写
+          lowerCaseServiceId: true
+      routes:
+      - id: service-hi
+        #lb-消费指定注册中心的服务
+        uri: lb://SERVICE-FEIGN
+        predicates:
+          - Path=/hi/**
+        #过滤掉/hi
+        filters:
+          - StripPrefix=1
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
